@@ -5,6 +5,7 @@ import { useInvoice } from '../context/InvoiceContext'
 import { InvoiceStatus } from '../types'
 import { Filter } from '../components/Filter'
 import { InvoiceListItem } from '../components/InvoiceListItem'
+import { EmptyState } from '../components/EmptyState'
 
 export function InvoiceListPage() {
   const { invoices, filterByStatus } = useInvoice()
@@ -24,7 +25,7 @@ export function InvoiceListPage() {
               Invoices
             </h1>
             <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">
-              There are {invoices.length} total invoices
+              There are {filteredInvoices.length} total invoices
             </p>
           </div>
           <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3">
@@ -43,19 +44,15 @@ export function InvoiceListPage() {
         </div>
 
         {/* Invoice List */}
-        <div className="space-y-3 md:space-y-4">
-          {filteredInvoices.length > 0 ? (
-            filteredInvoices.map(invoice => (
+        {filteredInvoices.length > 0 ? (
+          <div className="space-y-3 md:space-y-4">
+            {filteredInvoices.map(invoice => (
               <InvoiceListItem key={invoice.id} invoice={invoice} />
-            ))
-          ) : (
-            <div className="text-center py-16">
-              <p className="text-gray-600 dark:text-gray-400 text-lg">
-                No invoices found
-              </p>
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <EmptyState />
+        )}
       </div>
     </div>
   )

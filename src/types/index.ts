@@ -14,6 +14,9 @@ export interface Invoice {
   clientName: string
   clientEmail: string
   clientAddress: string
+  clientCity?: string
+  clientPostalCode?: string
+  clientCountry?: string
   dueDate: string
   createdAt: string
   items: InvoiceItem[]
@@ -26,8 +29,12 @@ export interface CreateInvoiceInput {
   clientName: string
   clientEmail: string
   clientAddress: string
+  clientCity?: string
+  clientPostalCode?: string
+  clientCountry?: string
   dueDate: string
   items: InvoiceItem[]
+  total: number
   status: InvoiceStatus
   notes?: string
 }

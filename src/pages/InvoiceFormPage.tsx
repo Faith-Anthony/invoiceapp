@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FiArrowLeft, FiTrash2, FiPlus } from 'react-icons/fi'
 import { useInvoice } from '../context/InvoiceContext'
-import { Invoice, InvoiceItem, CreateInvoiceInput } from '../types'
+import { InvoiceItem, CreateInvoiceInput } from '../types'
 import { v4 as uuidv4 } from 'uuid'
 
 export function InvoiceFormPage() {
@@ -19,20 +19,28 @@ export function InvoiceFormPage() {
         clientName: existingInvoice.clientName,
         clientEmail: existingInvoice.clientEmail,
         clientAddress: existingInvoice.clientAddress,
+        clientCity: existingInvoice.clientCity || '',
+        clientPostalCode: existingInvoice.clientPostalCode || '',
+        clientCountry: existingInvoice.clientCountry || '',
         dueDate: existingInvoice.dueDate,
         items: existingInvoice.items,
         status: existingInvoice.status,
-        notes: existingInvoice.notes,
+        notes: existingInvoice.notes || '',
+        total: existingInvoice.total,
       }
     }
     return {
       clientName: '',
       clientEmail: '',
       clientAddress: '',
+      clientCity: '',
+      clientPostalCode: '',
+      clientCountry: '',
       dueDate: '',
       items: [{ id: uuidv4(), description: '', quantity: 1, price: 0, total: 0 }],
       status: 'draft',
       notes: '',
+      total: 0,
     }
   })
 
@@ -139,25 +147,112 @@ export function InvoiceFormPage() {
         <div className="mb-8">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-6"
+            className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-6 text-sm"
           >
-            <FiArrowLeft size={20} />
-            Back
+            <FiArrowLeft size={18} />
+            Go back
           </button>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            {isEditing ? 'Edit Invoice' : 'Create Invoice'}
+            {isEditing ? `Edit - ${existingInvoice?.invoiceNumber}` : 'New Invoice'}
           </h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Client Info */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Bill From Section */}
           <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 border border-gray-200 dark:border-slate-700">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Client Information
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+              Bill From
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Your Company
+                </label>
+                <input
+                  type="text"
+                  placeholder="Your Company Name"
+                  defaultValue="My Company"
+                  disabled
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  disabled
+                  defaultValue="your@email.com"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Address
+                </label>
+                <input
+                  type="text"
+                  placeholder="Your Address"
+                  disabled
+                  defaultValue="123 Main Street"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  City
+                </label>
+                <input
+                  type="text"
+                  placeholder="City"
+                  disabled
+                  defaultValue="London"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Postal Code
+                </label>
+                <input
+                  type="text"
+                  placeholder="Postal Code"
+                  disabled
+                  defaultValue="E1 2IZ"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Country
+                </label>
+                <input
+                  type="text"
+                  placeholder="Country"
+                  disabled
+                  defaultValue="United Kingdom"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Bill To Section */}
+          <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 border border-gray-200 dark:border-slate-700">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+              Bill To
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="md:col-span-3">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Client Name *
                 </label>
@@ -179,7 +274,7 @@ export function InvoiceFormPage() {
                 )}
               </div>
 
-              <div>
+              <div className="md:col-span-3">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Email *
                 </label>
@@ -201,7 +296,7 @@ export function InvoiceFormPage() {
                 )}
               </div>
 
-              <div className="col-span-1 md:col-span-2">
+              <div className="md:col-span-3">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Address *
                 </label>
@@ -221,6 +316,68 @@ export function InvoiceFormPage() {
                     {errors.clientAddress}
                   </p>
                 )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  City
+                </label>
+                <input
+                  type="text"
+                  name="clientCity"
+                  placeholder="City"
+                  value={formData.clientCity || ''}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Postal Code
+                </label>
+                <input
+                  type="text"
+                  name="clientPostalCode"
+                  placeholder="Postal Code"
+                  value={formData.clientPostalCode || ''}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Country
+                </label>
+                <input
+                  type="text"
+                  name="clientCountry"
+                  placeholder="Country"
+                  value={formData.clientCountry || ''}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Invoice Dates Section */}
+          <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 border border-gray-200 dark:border-slate-700">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+              Invoice Details
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Invoice Date
+                </label>
+                <input
+                  type="date"
+                  disabled
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                />
               </div>
 
               <div>
@@ -263,35 +420,25 @@ export function InvoiceFormPage() {
             </div>
           </div>
 
-          {/* Invoice Items */}
+          {/* Item List Section */}
           <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 border border-gray-200 dark:border-slate-700">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                Invoice Items
-              </h2>
-              <button
-                type="button"
-                onClick={addItem}
-                className="flex items-center gap-2 px-3 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors"
-              >
-                <FiPlus size={18} />
-                Add Item
-              </button>
-            </div>
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+              Item List
+            </h2>
 
             {errors.items && (
               <p className="text-red-600 dark:text-red-400 text-sm mb-4">{errors.items}</p>
             )}
 
-            <div className="space-y-4">
+            <div className="space-y-3 mb-4">
               {formData.items.map((item, idx) => (
-                <div key={item.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-3">
+                <div key={item.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-3 items-end">
                   <input
                     type="text"
-                    placeholder="Item description"
+                    placeholder="Item name"
                     value={item.description}
                     onChange={(e) => handleItemChange(idx, 'description', e.target.value)}
-                    className="col-span-1 md:col-span-4 px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="col-span-1 md:col-span-4 px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                   />
 
                   <div className="col-span-1 md:col-span-2">
@@ -305,7 +452,7 @@ export function InvoiceFormPage() {
                         errors[`quantity-${idx}`]
                           ? 'border-red-500'
                           : 'border-gray-300 dark:border-slate-600'
-                      } bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary`}
+                      } bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-sm`}
                     />
                   </div>
 
@@ -321,12 +468,12 @@ export function InvoiceFormPage() {
                         errors[`price-${idx}`]
                           ? 'border-red-500'
                           : 'border-gray-300 dark:border-slate-600'
-                      } bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary`}
+                      } bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-sm`}
                     />
                   </div>
 
                   <div className="col-span-1 md:col-span-2 flex items-center justify-between">
-                    <span className="text-gray-900 dark:text-white font-medium">
+                    <span className="text-gray-900 dark:text-white font-medium text-sm">
                       £ {item.total.toFixed(2)}
                     </span>
                     {formData.items.length > 1 && (
@@ -343,45 +490,38 @@ export function InvoiceFormPage() {
               ))}
             </div>
 
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-slate-700 flex justify-end">
-              <div className="bg-primary/10 dark:bg-primary/5 px-6 py-3 rounded-lg">
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                  £ {total.toFixed(2)}
-                </p>
+            <button
+              type="button"
+              onClick={addItem}
+              className="text-primary hover:text-primary/80 font-medium text-sm flex items-center gap-1 mb-6"
+            >
+              <FiPlus size={16} />
+              Add Item Row
+            </button>
+
+            {/* Total Section */}
+            <div className="border-t border-gray-200 dark:border-slate-700 pt-4 flex justify-end">
+              <div className="bg-slate-800 dark:bg-slate-900 text-white px-6 py-3 rounded-lg">
+                <p className="text-sm text-gray-300 mb-1">Total</p>
+                <p className="text-2xl font-bold">£ {total.toFixed(2)}</p>
               </div>
             </div>
           </div>
 
-          {/* Notes */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 border border-gray-200 dark:border-slate-700">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Notes
-            </label>
-            <textarea
-              name="notes"
-              value={formData.notes}
-              onChange={handleInputChange}
-              placeholder="Payment terms, thanks message, etc."
-              rows={4}
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
-
           {/* Form Actions */}
-          <div className="flex gap-4">
+          <div className="flex gap-4 justify-end">
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="flex-1 px-6 py-3 bg-gray-200 dark:bg-slate-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 rounded-lg font-medium transition-colors"
+              className="px-6 py-2 bg-gray-200 dark:bg-slate-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 rounded-lg font-medium transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors"
+              className="px-6 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors"
             >
-              {isEditing ? 'Update Invoice' : 'Create Invoice'}
+              {isEditing ? 'Save Changes' : 'Save Invoice'}
             </button>
           </div>
         </form>

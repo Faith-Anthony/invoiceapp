@@ -37,81 +37,102 @@ export function InvoiceDetailPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900 p-4 md:p-6 lg:p-8">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors self-start"
-          >
-            <FiArrowLeft size={20} />
-            Back
-          </button>
+        {/* Go Back */}
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors mb-8 text-sm"
+        >
+          <FiArrowLeft size={18} />
+          Go back
+        </button>
 
-          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:gap-4">
-            <button
-              onClick={() => navigate(`/edit/${invoice.id}`)}
-              className="flex items-center justify-center gap-2 px-3 md:px-4 py-2 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg transition-colors border border-gray-200 dark:border-slate-700 text-sm md:text-base"
-            >
-              <FiEdit2 size={18} />
-              <span className="hidden md:inline">Edit</span>
-            </button>
-            {invoice.status === 'pending' && (
-              <button
-                onClick={() => markAsPaid(invoice.id)}
-                className="flex items-center justify-center gap-2 px-3 md:px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm md:text-base"
-              >
-                Mark as Paid
-              </button>
-            )}
-            <button
-              onClick={() => setShowDeleteConfirm(true)}
-              className="flex items-center justify-center gap-2 px-3 md:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm md:text-base"
-            >
-              <FiTrash2 size={18} />
-              <span className="hidden md:inline">Delete</span>
-            </button>
-            <button className="flex items-center justify-center gap-2 px-3 md:px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm md:text-base">
-              <FiDownload size={18} />
-              <span className="hidden md:inline">Download</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Invoice Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8 border border-gray-200 dark:border-slate-700">
-          {/* Invoice Info */}
-          <div className="mb-8">
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  #{invoice.invoiceNumber}
-                </h1>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Created {formatDateDisplay(invoice.createdAt)}
-                </p>
-              </div>
+        {/* Header with Status and Actions */}
+        <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 md:p-8 mb-8 border border-gray-200 dark:border-slate-700">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Status</p>
               <StatusBadge status={invoice.status} variant="large" />
             </div>
 
-            <div className="grid grid-cols-2 gap-8 mb-8">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">
-                  Bill To
-                </h3>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {invoice.clientName}
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => navigate(`/edit/${invoice.id}`)}
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-lg transition-colors text-sm font-medium"
+              >
+                <FiEdit2 size={18} />
+                Edit
+              </button>
+              <button
+                onClick={() => setShowDeleteConfirm(true)}
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 rounded-lg transition-colors text-sm font-medium"
+              >
+                <FiTrash2 size={18} />
+                Delete
+              </button>
+              {invoice.status === 'pending' && (
+                <button
+                  onClick={() => markAsPaid(invoice.id)}
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors text-sm font-medium"
+                >
+                  Mark as Paid
+                </button>
+              )}
+              <button className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 rounded-lg transition-colors text-sm font-medium">
+                <FiDownload size={18} />
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Invoice Content */}
+        <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 md:p-8 border border-gray-200 dark:border-slate-700">
+          {/* Invoice Header */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-gray-200 dark:border-slate-700">
+            {/* Invoice Number and Description */}
+            <div className="md:col-span-1">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                #{invoice.invoiceNumber}
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {invoice.items[0]?.description || 'Invoice'}
+              </p>
+            </div>
+
+            {/* Invoice Dates */}
+            <div className="md:col-span-1">
+              <div className="mb-4">
+                <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase mb-1">
+                  Invoice Date
                 </p>
-                <p className="text-gray-600 dark:text-gray-400">{invoice.clientEmail}</p>
-                <p className="text-gray-600 dark:text-gray-400">{invoice.clientAddress}</p>
+                <p className="text-sm text-gray-900 dark:text-white font-medium">
+                  {formatDateDisplay(invoice.createdAt)}
+                </p>
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">
-                  Invoice Details
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  <span className="font-semibold">Due:</span> {formatDateDisplay(invoice.dueDate)}
+                <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase mb-1">
+                  Payment Due
+                </p>
+                <p className="text-sm text-gray-900 dark:text-white font-medium">
+                  {formatDateDisplay(invoice.dueDate)}
                 </p>
               </div>
+            </div>
+
+            {/* Bill To */}
+            <div className="md:col-span-1">
+              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase mb-2">
+                Bill To
+              </p>
+              <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                {invoice.clientName}
+              </p>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">
+                {invoice.clientAddress}
+              </p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                {invoice.clientEmail}
+              </p>
             </div>
           </div>
 
@@ -120,16 +141,16 @@ export function InvoiceDetailPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-slate-700">
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
-                    Item Description
+                  <th className="text-left py-3 px-0 font-semibold text-gray-600 dark:text-gray-400 text-sm">
+                    Item Name
                   </th>
-                  <th className="text-center py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-center py-3 px-4 font-semibold text-gray-600 dark:text-gray-400 text-sm">
                     QTY
                   </th>
-                  <th className="text-right py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-right py-3 px-4 font-semibold text-gray-600 dark:text-gray-400 text-sm">
                     Price
                   </th>
-                  <th className="text-right py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-right py-3 px-0 font-semibold text-gray-600 dark:text-gray-400 text-sm">
                     Total
                   </th>
                 </tr>
@@ -140,16 +161,16 @@ export function InvoiceDetailPage() {
                     key={item.id}
                     className={idx !== invoice.items.length - 1 ? 'border-b border-gray-200 dark:border-slate-700' : ''}
                   >
-                    <td className="py-3 px-4 text-gray-900 dark:text-white">
+                    <td className="py-3 px-0 text-gray-900 dark:text-white text-sm">
                       {item.description}
                     </td>
-                    <td className="py-3 px-4 text-center text-gray-600 dark:text-gray-400">
+                    <td className="py-3 px-4 text-center text-gray-600 dark:text-gray-400 text-sm">
                       {item.quantity}
                     </td>
-                    <td className="py-3 px-4 text-right text-gray-600 dark:text-gray-400">
+                    <td className="py-3 px-4 text-right text-gray-600 dark:text-gray-400 text-sm">
                       £ {item.price.toFixed(2)}
                     </td>
-                    <td className="py-3 px-4 text-right font-semibold text-gray-900 dark:text-white">
+                    <td className="py-3 px-0 text-right font-semibold text-gray-900 dark:text-white text-sm">
                       £ {item.total.toFixed(2)}
                     </td>
                   </tr>
@@ -158,20 +179,18 @@ export function InvoiceDetailPage() {
             </table>
           </div>
 
-          {/* Total */}
-          <div className="flex justify-end mb-8">
-            <div className="bg-primary/10 dark:bg-primary/5 px-6 py-3 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                £ {invoice.total.toFixed(2)}
-              </p>
-            </div>
+          {/* Amount Due Section */}
+          <div className="bg-slate-800 dark:bg-slate-900 text-white p-6 rounded-lg flex items-center justify-between">
+            <p className="text-sm font-medium text-gray-300">Amount Due</p>
+            <p className="text-3xl font-bold">
+              £ {invoice.total.toFixed(2)}
+            </p>
           </div>
 
           {/* Notes */}
           {invoice.notes && (
-            <div>
-              <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">
+            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-slate-700">
+              <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">
                 Notes
               </h3>
               <p className="text-gray-600 dark:text-gray-400">{invoice.notes}</p>
