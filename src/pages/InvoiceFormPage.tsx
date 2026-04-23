@@ -432,16 +432,16 @@ export function InvoiceFormPage() {
 
             <div className="space-y-3 mb-4">
               {formData.items.map((item, idx) => (
-                <div key={item.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-3 items-end">
+                <div key={item.id} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-12 gap-2 items-end">
                   <input
                     type="text"
                     placeholder="Item name"
                     value={item.description}
                     onChange={(e) => handleItemChange(idx, 'description', e.target.value)}
-                    className="col-span-1 md:col-span-4 px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                    className="col-span-2 sm:col-span-3 md:col-span-4 px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                   />
 
-                  <div className="col-span-1 md:col-span-2">
+                  <div className="col-span-1 sm:col-span-1 md:col-span-2">
                     <input
                       type="number"
                       placeholder="Qty"
@@ -456,7 +456,7 @@ export function InvoiceFormPage() {
                     />
                   </div>
 
-                  <div className="col-span-1 md:col-span-2">
+                  <div className="col-span-1 sm:col-span-1 md:col-span-2">
                     <input
                       type="number"
                       placeholder="Price"
@@ -472,7 +472,7 @@ export function InvoiceFormPage() {
                     />
                   </div>
 
-                  <div className="col-span-1 md:col-span-2 flex items-center justify-between">
+                  <div className="col-span-2 sm:col-span-1 md:col-span-2 flex items-center justify-between">
                     <span className="text-gray-900 dark:text-white font-medium text-sm">
                       £ {item.total.toFixed(2)}
                     </span>
@@ -509,17 +509,17 @@ export function InvoiceFormPage() {
           </div>
 
           {/* Form Actions */}
-          <div className="flex gap-4 justify-end">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 sm:justify-end">
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="px-6 py-2 bg-gray-200 dark:bg-slate-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 rounded-lg font-medium transition-colors"
+              className="px-6 py-2 sm:px-6 sm:py-2 bg-gray-200 dark:bg-slate-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 rounded-lg font-medium transition-colors text-sm sm:text-base"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors"
+              className="px-6 py-2 sm:px-6 sm:py-2 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-colors text-sm sm:text-base"
             >
               {isEditing ? 'Save Changes' : 'Save Invoice'}
             </button>
