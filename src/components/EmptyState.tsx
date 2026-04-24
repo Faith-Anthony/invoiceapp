@@ -2,16 +2,16 @@ import { Link } from 'react-router-dom'
 
 export function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center py-12 sm:py-20 px-4">
-      <div className="mb-8 flex justify-center">
-        {/* Empty State Illustration */}
+    <div className="flex flex-col items-center justify-center min-h-[500px]">
+      {/* Illustration positioned outside/above the content box */}
+      <div className="mb-12 flex justify-center">
         <svg
           width="120"
           height="120"
           viewBox="0 0 140 140"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="sm:w-[140px] sm:h-[140px] mb-4"
+          className="sm:w-[140px] sm:h-[140px]"
         >
           {/* Envelope */}
           <rect x="30" y="50" width="80" height="50" rx="4" fill="none" stroke="#7C3AED" strokeWidth="2"/>
@@ -24,20 +24,23 @@ export function EmptyState() {
         </svg>
       </div>
 
-      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
-        There is nothing here
-      </h2>
+      {/* Content box */}
+      <div className="text-center px-4">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+          There is nothing here
+        </h2>
 
-      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 text-center max-w-sm mb-8">
-        Create an invoice by clicking the New Invoice button and get started
-      </p>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 text-center max-w-sm mb-8">
+          Create an invoice by clicking the New Invoice button and get started
+        </p>
 
-      <Link
-        to="/create"
-        className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-full font-medium transition-colors"
-      >
-        New Invoice
-      </Link>
+        <Link
+          to="/create"
+          className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-full font-medium transition-colors"
+        >
+          New Invoice
+        </Link>
+      </div>
     </div>
   )
 }
