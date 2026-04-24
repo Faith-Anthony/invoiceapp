@@ -7,8 +7,8 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile/Tablet Header (Top Bar) */}
-      <header className="w-full lg:hidden bg-gradient-to-r from-primary to-primary-dark dark:from-slate-800 dark:to-slate-900 flex items-center justify-between px-4 py-4 shadow-lg sticky top-0 z-40">
+      {/* Mobile/Tablet Header (Top Bar) - shows on screen < 1024px */}
+      <header className="block lg:hidden w-full bg-gradient-to-r from-primary to-primary-dark dark:from-slate-800 dark:to-slate-900 flex items-center justify-between px-4 py-4 shadow-lg sticky top-0 z-40">
         <div className="w-8 h-8">
           <Logo />
         </div>
@@ -29,7 +29,7 @@ export function Sidebar() {
         </div>
       </header>
 
-      {/* Desktop Sidebar (Left Bar) */}
+      {/* Desktop Sidebar (Left Bar) - shows on screen >= 1024px */}
       <aside className="hidden lg:flex w-[100px] bg-gradient-to-b from-primary to-primary-dark dark:from-slate-800 dark:to-slate-900 flex-col items-center py-6 min-h-screen fixed left-0 top-0 shadow-lg z-40">
         {/* Logo */}
         <div className="mb-10">
