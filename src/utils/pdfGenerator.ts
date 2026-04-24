@@ -24,11 +24,7 @@ export function generateInvoicePDF(invoice: Invoice) {
     const { fontSize = 10, fontStyle = 'normal', color = [0, 0, 0] } = options
     doc.setFontSize(fontSize)
     doc.setTextColor(color[0], color[1], color[2])
-    if (fontStyle === 'bold') {
-      doc.setFont(undefined, 'bold')
-    } else {
-      doc.setFont(undefined, 'normal')
-    }
+    doc.setFontStyle(fontStyle)
     doc.text(text, x, y)
   }
 
