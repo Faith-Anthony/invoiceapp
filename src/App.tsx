@@ -11,9 +11,9 @@ function App() {
     <ThemeProvider>
       <InvoiceProvider>
         <Router>
-          <div className="flex flex-col lg:flex-row dark:bg-slate-900">
+          <div className="w-full flex flex-col lg:flex-row min-h-screen dark:bg-slate-900">
             <Sidebar />
-            <main className="flex-1 lg:ml-[100px]">
+            <main className="flex-1 w-full lg:ml-[100px]">
               <Routes>
                 <Route path="/" element={<InvoiceListPage />} />
                 <Route path="/invoice/:id" element={<InvoiceDetailPage />} />

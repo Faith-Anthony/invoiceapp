@@ -8,7 +8,7 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile/Tablet Header (Top Bar) */}
-      <header className="lg:hidden bg-gradient-to-r from-primary to-primary-dark dark:from-slate-800 dark:to-slate-900 flex items-center justify-between px-4 py-4 shadow-lg sticky top-0 z-40">
+      <header className="w-full lg:hidden bg-gradient-to-r from-primary to-primary-dark dark:from-slate-800 dark:to-slate-900 flex items-center justify-between px-4 py-4 shadow-lg sticky top-0 z-40">
         <div className="w-8 h-8">
           <Logo />
         </div>
