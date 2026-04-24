@@ -3,24 +3,56 @@ import { Link } from 'react-router-dom'
 export function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[500px]">
-      {/* Illustration positioned outside/above the content box */}
+      {/* Illustration - Person holding microphone */}
       <div className="mb-12 flex justify-center">
         <svg
-          width="120"
-          height="120"
-          viewBox="0 0 140 140"
+          width="160"
+          height="160"
+          viewBox="0 0 200 240"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="sm:w-[140px] sm:h-[140px]"
+          className="sm:w-[180px] sm:h-[180px]"
         >
-          {/* Envelope */}
-          <rect x="30" y="50" width="80" height="50" rx="4" fill="none" stroke="#7C3AED" strokeWidth="2"/>
-          <path d="M30 50 L70 75 L110 50" stroke="#7C3AED" strokeWidth="2" fill="none"/>
+          {/* Head */}
+          <circle cx="100" cy="50" r="22" fill="#7C3AED" opacity="0.3"/>
           
-          {/* Plus Icon */}
-          <circle cx="70" cy="70" r="35" fill="none" stroke="#7C3AED" strokeWidth="2" strokeDasharray="5,5" opacity="0.5"/>
-          <line x1="70" y1="55" x2="70" y2="85" stroke="#7C3AED" strokeWidth="3" strokeLinecap="round"/>
-          <line x1="55" y1="70" x2="85" y2="70" stroke="#7C3AED" strokeWidth="3" strokeLinecap="round"/>
+          {/* Body - torso */}
+          <rect x="80" y="75" width="40" height="45" rx="8" fill="#7C3AED" opacity="0.2"/>
+          
+          {/* Left arm */}
+          <path d="M80 85 Q50 90 40 120" stroke="#7C3AED" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.4"/>
+          
+          {/* Right arm holding mic */}
+          <path d="M120 85 Q150 95 160 130" stroke="#7C3AED" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.4"/>
+          
+          {/* Microphone */}
+          <g>
+            {/* Mic handle */}
+            <rect x="155" y="125" width="8" height="50" rx="4" fill="#7C3AED" opacity="0.5"/>
+            
+            {/* Mic head - circle */}
+            <circle cx="159" cy="115" r="12" fill="none" stroke="#7C3AED" strokeWidth="3" opacity="0.6"/>
+            
+            {/* Mic grille pattern */}
+            <line x1="155" y1="110" x2="163" y2="110" stroke="#7C3AED" strokeWidth="1.5" opacity="0.5"/>
+            <line x1="155" y1="115" x2="163" y2="115" stroke="#7C3AED" strokeWidth="1.5" opacity="0.5"/>
+            <line x1="155" y1="120" x2="163" y2="120" stroke="#7C3AED" strokeWidth="1.5" opacity="0.5"/>
+          </g>
+          
+          {/* Legs */}
+          <line x1="90" y1="120" x2="85" y2="170" stroke="#7C3AED" strokeWidth="5" strokeLinecap="round" opacity="0.3"/>
+          <line x1="110" y1="120" x2="115" y2="170" stroke="#7C3AED" strokeWidth="5" strokeLinecap="round" opacity="0.3"/>
+          
+          {/* Feet */}
+          <ellipse cx="85" cy="172" rx="8" ry="5" fill="#7C3AED" opacity="0.3"/>
+          <ellipse cx="115" cy="172" rx="8" ry="5" fill="#7C3AED" opacity="0.3"/>
+          
+          {/* Chat bubble indicator */}
+          <g>
+            <path d="M40 180 L60 160 L80 170 Q70 190 50 195 Z" fill="none" stroke="#7C3AED" strokeWidth="2" opacity="0.4" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="45" cy="185" r="2" fill="#7C3AED" opacity="0.4"/>
+            <circle cx="55" cy="185" r="2" fill="#7C3AED" opacity="0.4"/>
+          </g>
         </svg>
       </div>
 
