@@ -100,16 +100,18 @@ export function generateInvoicePDF(invoice: Invoice) {
   // Items
   invoice.items.forEach((item, idx) => {
     const itemY = yPosition
-    addText(item.description, colX[0], itemY, { fontSize: 9 })
-    addText(`${item.quantity}`, colX[1], itemY, { fontSize: 9 })
-    addText(`£ ${item.price.toFixed(2)}`, colX[2], itemY, { fontSize: 9 })
-    addText(`£ ${item.total.toFixed(2)}`, colX[3], itemY, { fontSize: 9, fontStyle: 'bold' })
 
-    // Alternating row background
+    // Alternating row background - draw BEFORE text
     if (idx % 2 === 0) {
       doc.setFillColor(240, 241, 245)
       doc.rect(margin, itemY - 4, pageWidth - 2 * margin, 6, 'F')
     }
+
+    // Draw text on top of background
+    addText(item.description, colX[0], itemY, { fontSize: 9 })
+    addText(`${item.quantity}`, colX[1], itemY, { fontSize: 9 })
+    addText(`£ ${item.price.toFixed(2)}`, colX[2], itemY, { fontSize: 9 })
+    addText(`£ ${item.total.toFixed(2)}`, colX[3], itemY, { fontSize: 9, fontStyle: 'bold' })
 
     yPosition += 8
   })
