@@ -40,8 +40,8 @@ export function Sidebar() {
       {/* Desktop Sidebar (Left Bar) - shows on screen >= 1024px */}
       <aside className="hidden lg:flex flex-col items-center w-[100px] min-h-screen px-0 py-6 fixed left-0 top-0 z-40 shadow-lg" style={{ backgroundColor: '#373B53' }}>
         {/* Logo */}
-        <div className="mb-10">
-          <div className="w-10 h-10">
+        <div className="w-full h-auto flex items-center justify-center py-8">
+          <div className="w-16 h-16">
             <Logo />
           </div>
         </div>
