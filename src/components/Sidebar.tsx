@@ -17,10 +17,11 @@ export function Sidebar() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="p-2.5 hover:opacity-90 transition-opacity text-white flex items-center justify-center shadow-md hover:shadow-lg"
+            className="p-2.5 hover:opacity-90 transition-opacity flex items-center justify-center shadow-md hover:shadow-lg"
             style={{
-              backgroundColor: '#8A38F5',
-              borderRadius: '5px'
+              backgroundColor: '#373B53',
+              borderRadius: '5px',
+              color: '#7E88C3'
             }}
             aria-label="Toggle theme"
             title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -51,10 +52,11 @@ export function Sidebar() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="p-3 mb-6 hover:opacity-90 transition-opacity text-white flex items-center justify-center shadow-md hover:shadow-lg"
+          className="p-3 mb-6 hover:opacity-90 transition-opacity flex items-center justify-center shadow-md hover:shadow-lg"
           style={{
-            backgroundColor: '#8A38F5',
-            borderRadius: '5px'
+            backgroundColor: '#373B53',
+            borderRadius: '5px',
+            color: '#7E88C3'
           }}
           aria-label="Toggle theme"
           title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}

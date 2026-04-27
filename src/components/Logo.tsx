@@ -1,4 +1,4 @@
-import logoImage from '../assets/Group 9.jpg'
+import logoImage from '../assets/logo (2).jpg'
 
 export function Logo() {
   return (
