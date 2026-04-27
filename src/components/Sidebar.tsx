@@ -1,6 +1,7 @@
 import { FiMoon, FiSun } from 'react-icons/fi'
 import { Logo } from './Logo'
 import { useTheme } from '../context/ThemeContext'
+import avatarImage from '../assets/Oval.jpg'
 
 export function Sidebar() {
   const { isDark, toggleTheme } = useTheme()
@@ -16,16 +17,22 @@ export function Sidebar() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="p-2.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors text-white flex items-center justify-center shadow-md hover:shadow-lg"
+            className="p-2.5 hover:opacity-90 transition-opacity text-white flex items-center justify-center shadow-md hover:shadow-lg"
+            style={{
+              backgroundColor: '#8A38F5',
+              borderRadius: '5px'
+            }}
             aria-label="Toggle theme"
             title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {isDark ? <FiSun size={20} /> : <FiMoon size={20} />}
           </button>
 
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-bold text-xs cursor-pointer hover:shadow-lg transition-shadow">
-            A
-          </div>
+          <img 
+            src={avatarImage} 
+            alt="User Avatar" 
+            className="w-8 h-8 rounded-full cursor-pointer hover:shadow-lg transition-shadow"
+          />
         </div>
       </header>
 
@@ -44,7 +51,11 @@ export function Sidebar() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="p-3 rounded-lg bg-white/20 hover:bg-white/30 transition-colors text-white mb-6 flex items-center justify-center shadow-md hover:shadow-lg"
+          className="p-3 mb-6 hover:opacity-90 transition-opacity text-white flex items-center justify-center shadow-md hover:shadow-lg"
+          style={{
+            backgroundColor: '#8A38F5',
+            borderRadius: '5px'
+          }}
           aria-label="Toggle theme"
           title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         >
@@ -52,9 +63,11 @@ export function Sidebar() {
         </button>
 
         {/* Profile Avatar */}
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-bold text-xs cursor-pointer hover:shadow-lg transition-shadow">
-          A
-        </div>
+        <img 
+          src={avatarImage} 
+          alt="User Avatar" 
+          className="w-8 h-8 rounded-full cursor-pointer hover:shadow-lg transition-shadow"
+        />
       </aside>
     </>
   )
