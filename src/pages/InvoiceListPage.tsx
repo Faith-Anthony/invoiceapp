@@ -36,7 +36,9 @@ export function InvoiceListPage() {
               to="/create"
               className="flex items-center justify-center gap-2 px-4 md:px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-full font-medium transition-colors shadow-lg hover:shadow-xl text-sm md:text-base"
             >
-              <FiPlus size={20} />
+              <div className="flex items-center justify-center w-8 h-8 bg-white rounded-full text-primary">
+                <FiPlus size={20} />
+              </div>
               <span className="hidden md:inline">New Invoice</span>
               <span className="md:hidden">New</span>
             </Link>
